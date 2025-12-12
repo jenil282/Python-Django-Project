@@ -1,0 +1,46 @@
+{% load static %}
+<html>
+    <head>
+        <title>Login!</title>
+        <link rel="stylesheet" href="{%static 'css/user_login.css'%} ">
+        </head>
+        <body>
+
+            <div class="Create_main">
+                 <div class="sign-up ">
+                    <div class="sign-up-box">
+                        <p class="sign-up-title">Welcome!</p>
+                        <p class="sign-up-text"> Sign up to securely create your account. Enter your details below to access all features and services.</p>
+                    </div>
+                    <!-- <button class="button-sign-in" >Sign-Up </button> -->
+                     <a href="{% url 'user_register' %}" class="button-sign-in">Sign-Up</a>
+                </div>
+                <div class="sign-in">
+                <form  method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <h1 class="title"> Sign IN </h1>
+                    <div class="all-content">
+                        <div class="content">
+                            <input type="text" class="field" id="usr" name="user_name" autocomplete="new-username" placeholder="User Name" required>
+                        </div>
+                        <!-- <div class="content">
+                            <input type="email" class="field" id="email" name="email" placeholder="Email">
+                        </div> -->
+                        <div class="content">
+                            <input type="password" class="field" id="pwd" name="password" autocomplete="new-password" placeholder="Password" required>
+                        </div>
+                            {% if msg %}
+                            <p class="login-msg">{{ msg }}</p>
+                            {% endif %}
+                        <div class="button">
+                            <!-- <a href="{% url 'index'%}" type="button" class="Cancle"> Cancle</a> -->
+                            <button class="submit" type="submit" value="Submit">Submit</button>
+                        </div>
+
+                    </div>
+                </form>
+                </div>
+
+            </div>
+        </body>
+</html>

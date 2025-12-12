@@ -1,0 +1,119 @@
+body {
+    display: flex;
+    justify-content: center;  
+    min-height: 100vh;         
+    background: rgb(192, 186, 194);
+    /* background-color: transparent; */
+    padding: 0;
+    margin: 0;
+}
+.create_main{
+    position: relative;
+    display: flex;
+    /* justify-content: center; */
+    top:10rem;
+    width:30%;
+    height: 40%;
+    border-radius: 10px;
+    /* background-color:#ffd0c8; */
+    background: rgb(255, 255, 255);
+    box-shadow:rgba(75, 75, 75, 0.512) 0.1rem 0.2rem 35px 0.2rem;
+}
+.title{
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color:rgb(89, 27, 117);
+    border-bottom: 2px solid rgb(89, 27, 117);
+    letter-spacing: 4px;
+    padding-bottom: 0.5rem;
+    /* line-height: 2rem; */
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.all-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* vertical center */
+    align-items: center;  
+    margin-top: 3rem;;
+       /* horizontal center */    
+    /* margin-left:0.5rem;                 */
+    padding: 2rem;  
+    /* padding-left: 2.5rem;             */
+    /* border: 1.5px solid rgb(172, 172, 172);     */
+    border-radius: 10px;           
+    box-sizing: border-box;  
+    height: auto;   
+}
+
+
+.button{
+    display:flex;
+    margin-top: 2rem;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    gap:5rem;
+    width: 100%;
+}
+.cancle{
+    padding: 0.6rem 3.5rem 0.5rem 3.5rem;
+    text-align: center;
+    font-size: 17px;
+    color:white;
+    font-weight: 500;   
+    letter-spacing: 1px;
+    background-color: rgb(255, 115, 115);
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+}
+.submit{
+    padding: 0.7rem 3.5rem 0.7rem 3.5rem;
+    text-align: center;
+    color:white;
+    font-size: 16px;
+    font-weight: 500;   
+    letter-spacing: 3px;
+    background-color: rgb(93, 11, 130);
+    text-decoration: none;
+    border:none;
+    border-radius: 4px;
+}
+
+.submit:hover {
+    background-color: rgb(7, 137, 11);
+    cursor: pointer;
+}
+.cancle:hover {
+    background-color: rgb(255, 85, 85);
+    cursor: pointer;
+}
+
+.button-sign-in{
+    padding: 0.7rem 3.5rem 0.7rem 3.5rem;
+    text-align: center;
+    color:white;
+    font-size: 17px;
+    font-weight: 500;   
+    letter-spacing: 3px;
+    text-decoration: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(93, 11, 130);
+    border:none;
+    border-radius: 4px;
+    cursor:pointer;
+    position: absolute;
+    top:20rem;
+    left:7rem;
+}
+.logout{
+    position: relative;
+    width: 100%;
+    top:0rem;
+}

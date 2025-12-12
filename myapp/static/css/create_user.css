@@ -1,0 +1,169 @@
+body {
+    display: flex;
+    justify-content: center;  
+    min-height: 100vh;         
+    background: rgb(192, 186, 194);
+    /* background-color: transparent; */
+    padding: 0;
+    margin: 0;
+}
+.create_main{
+    position: relative;
+    display: flex;
+    /* justify-content: center; */
+    top:6rem;
+    width:50%;
+    height: 70%;
+    border-radius: 10px;
+    /* background-color:#ffd0c8; */
+    background: rgb(255, 255, 255);
+    box-shadow:rgba(75, 75, 75, 0.512) 0.1rem 0.2rem 35px 0.2rem;
+}
+.title{
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color:rgb(89, 27, 117);
+    border-bottom: 2px solid rgb(89, 27, 117);
+    letter-spacing: 4px;
+    padding-bottom: 0.5rem;
+    /* line-height: 2rem; */
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.all-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical center */
+    align-items: center;     /* horizontal center */    
+    /* margin-left:0.5rem;                 */
+    padding: 2rem;  
+    /* padding-left: 2.5rem;             */
+    /* border: 1.5px solid rgb(172, 172, 172);     */
+    border-radius: 10px;           
+    box-sizing: border-box;  
+    height: auto;   
+}
+.content{
+    margin-bottom:0.7rem;   
+    width: 100%;
+}
+
+.field{
+    width: 100%;
+    padding-top:0.4rem;
+    padding-left:1rem;
+    height: 3rem;
+    font-size: medium;
+    background-color: transparent;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    color:rgb(84, 84, 84);
+    border:none;
+    border-bottom: 2px solid #aaa;
+    border-radius: 5px;
+
+}
+.field:focus{
+    border:none;
+    outline: none;
+    border-bottom: 3px solid rgb(89, 27, 117);
+    background-color: transparent;
+} 
+.button{
+    display:flex;
+    margin-top: 1rem;
+    justify-content: center;
+    gap:5rem;
+    width: 100%;
+}
+.cancle{
+    padding: 0.6rem 3.5rem 0.5rem 3.5rem;
+    text-align: center;
+    font-size: 17px;
+    color:white;
+    font-weight: 500;   
+    letter-spacing: 1px;
+    background-color: rgb(255, 115, 115);
+    text-decoration: none;
+    border-radius: 4px;
+}
+.submit{
+    padding: 0.7rem 3.5rem 0.7rem 3.5rem;
+    text-align: center;
+    color:white;
+    font-size: 16px;
+    font-weight: 500;   
+    letter-spacing: 3px;
+    background-color: rgb(93, 11, 130);
+    text-decoration: none;
+    border:none;
+    border-radius: 4px;
+}
+
+.submit:hover {
+    background-color: rgb(7, 137, 11);
+    cursor: pointer;
+}
+.cancle:hover {
+    background-color: rgb(255, 85, 85);
+    cursor: pointer;
+}
+
+.button-sign-in{
+    padding: 0.7rem 3.5rem 0.7rem 3.5rem;
+    text-align: center;
+    color:white;
+    font-size: 16px;
+    font-weight: 500;   
+    letter-spacing: 3px;
+    background-color: rgb(93, 11, 130);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+    text-decoration: none;
+    border:none;
+    border-radius: 4px;
+    cursor:pointer;
+    position: absolute;
+    top:20rem;
+    left:8rem;
+}
+.sign-up{
+    width: 100%;
+}
+.sign-in-box{
+    position: absolute;
+    top:8rem;
+    text-align: center;
+    width: 100%;
+
+}
+.sign-in{
+    position: relative;
+    background-color: #e18c8c;
+    border-radius: 150px 0px 0px 150px;
+    width: 100%;
+    top:0rem;
+    left:0rem;
+    border-left: 1px blue;
+}
+.sign-in-title{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 32px;
+    color: rgb(57, 57, 57);
+
+
+}
+.sign-in-text{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: rgb(57, 57, 57);
+
+}

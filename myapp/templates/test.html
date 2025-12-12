@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .btn-create { background: #28a745; }
+        .btn-update { background: #007bff; }
+        .btn-delete { background: #dc3545; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>CRUD Form </h1>
+
+    <!-- CREATE FORM -->
+    <form class="card" action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <h2>Create Record</h2>
+
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Age</label>
+        <input type="number" name="age" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Phone</label>
+        <input type="phone" name="phone" required>
+        {% if error %}
+        <p style="color: red;">"Phone No is not valid "</p>
+        {% endif %}
+
+        <button type="submit" class="btn-create">Create</button>
+    </form>
+
+    <!-- DISPLAY TABLE -->
+    <div class="card">
+        <h2>Records List</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% if user %}
+                    {% for i in user %}
+                    <tr>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.age }}</td>
+                        <td>{{ i.email }}</td>
+                        <td>{{ i.phone_no }}</td>
+
+                        <td>
+                                    {% if error %}
+                                        <p style="color: red;">{{ error }}</p>
+                                    {% endif %}
+
+                                    <form \ action="{% url 'update' i.id %}" method="POST">
+                                        {% csrf_token %}
+                                        
+                                        <label>Name</label>
+                                        <input type="text" name="name" value="{{ user.name }}" placeholder="{{i.name}}" required > 
+
+                                        <label>Age</label>
+                                        <input type="number" name="age" value="{{ user.age }}" placeholder="{{i.age}}" required>
+
+                                        <label>Email</label>
+                                        <input type="email" name="email" value="{{ user.email }}" placeholder="{{i.email}}" required>
+
+                                        <label>Phone</label>
+                                        <input type="text" name="phone" value="{{ user.phone_no }}" placeholder="{{i.phone_no}}" required>
+
+                                        <button type="submit" class="btn-update">Update</button>
+                                        <a href="{% url 'show' %}"><button type="button" class="btn-cancel">Cancel</button></a>
+                                    </form>
+                        </td>
+
+                        <td>
+                            <form action="{% url 'delete' i.id %}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align:center;">No Records Found</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

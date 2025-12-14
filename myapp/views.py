@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.urls import reverse
 from .models import*
 # Create your views here.
 def index(request):
@@ -164,7 +165,8 @@ def cart_quant_sub(request, id):
             cart_item.quantity = 1 
         cart_item.save()
 
-    return redirect("cart_view")
+    # return redirect("cart_view")
+    return redirect(f"{reverse('cart_view')}#cart")
 
 def cart_quant_add(request, id):
     cart_item= Cart.objects.filter(id=id).first()
@@ -172,9 +174,11 @@ def cart_quant_add(request, id):
     if request.method =="POST":
         if cart_item:
             cart_item.quantity +=1
+            cart_item.total = cart_item.quantity * cart_item.price
             cart_item.save()
         
-    return redirect("cart_view")
+    # return redirect("cart_view")
+    return redirect(f"{reverse('cart_view')}#cart")
 
 
 def user_register(request):

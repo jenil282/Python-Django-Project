@@ -5,7 +5,7 @@
 
 
     <!-- Page Header Start -->
-    <div class="container-fluid bg-secondary mb-5">
+    <div class="container-fluid bg-secondary mb-5" id="cart">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
             <div class="d-inline-flex">
@@ -33,7 +33,41 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle">
+                    {% for p in products %}
+                    <tr>
+                        
+            
+                            <td class="align-middle"><img src="static/img/product-1.jpg" alt="" style="width: 50px;"> {{ p.name }}</td>
+                            <td class="align-middle">{{p.price}}</td>
+                            <td class="align-middle">
+                            <div class="quantity-main">
+                                <form action="{% url 'cart_quant_sub' id=p.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="quantity-btn" >
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </form>
+                                <p type="text" class="quantity-no" > {{p.quantity}}</p>
+                                <form action="{% url 'cart_quant_add' id=p.id %}" method="post">
+                                    {% csrf_token %}
+                                    
+                                        <button type="submit" class="quantity-btn">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    
+                                    </form>
+                            
+
+                            </div>
+                                
+                        </td>
+                         <td class="align-middle">{{p.total}}</td>
+                        <td class="align-middle"><button class="quantity-btn"><i class="fa fa-times"></i></button></td>
+
+                       
+                    </tr>
+                    {% endfor  %}
+                    <!-- <div>
                         {% for p in products %}
                         <tr>
                             
@@ -68,12 +102,13 @@
                             
                         </tr>
                         {% endfor %}
-                        
-                    </tbody>
+                    </div> -->
+
+
                     
                 </table>
             </div>
-              <div>
+              <!-- <div>
                 {% for p in products %}
                  <form action="{% url 'cart_quant_sub' id=p.id %}" method="post">
                     {% csrf_token %}
@@ -92,7 +127,7 @@
                     </form>
                 {% endfor %}
 
-            </div>
+            </div> -->
             
             <div class="col-lg-4">
                 <form class="mb-5" action="">

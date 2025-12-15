@@ -26,7 +26,6 @@
 }
 
 .quantity-btn:focus,
-.quantity-btn:active,
 .quantity-btn:hover {
     outline: none;
     box-shadow: none;
@@ -34,5 +33,12 @@
     background-color: #c5837c;
     color:white;
     font-weight: 400;
+
+}
+.quantity-btn:active{
+
+    background-color: #676767;
+    color:white;
+
 
 }

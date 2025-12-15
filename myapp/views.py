@@ -161,6 +161,7 @@ def cart_quant_sub(request, id):
     if request.method == "POST":
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
+            cart_item.total = cart_item.quantity * cart_item.price
         else:
             cart_item.quantity = 1 
         cart_item.save()
@@ -180,6 +181,13 @@ def cart_quant_add(request, id):
     # return redirect("cart_view")
     return redirect(f"{reverse('cart_view')}#cart")
 
+def cart_quant_remove(request, id):
+    if request.method=="POST":
+        Cart.objects.filter(id=id).delete()
+        # Cart.objects.all().delete()
+
+    
+    return redirect(f"{reverse('cart_view')}#cart")
 
 def user_register(request):
     if request.method=="POST":

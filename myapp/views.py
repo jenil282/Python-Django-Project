@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from .models import*
+from django.core.paginator import Paginator
 # Create your views here.
 def index(request):
     # cid=Main_category.objects.all()
@@ -44,6 +45,11 @@ def shopdetail(request, id):
         selected_size =request.POST.get("size")
         if selected_size:
             products= products.filter(size_key_id__in=selected_size)
+            
+        
+    paginator = Paginator(products, 6)  # 6 products per page
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
 
 
 
@@ -56,6 +62,7 @@ def shopdetail(request, id):
         'colors': colors,
         'prices': prices,
         'size':size,
+
     }
 
     return render(request, 'shop.html', context)
@@ -69,6 +76,10 @@ def shoplist(request):
     if request.method == "POST":
         selected_colors = request.POST.getlist("colors")  
         products = products.filter(color_key__in=selected_colors)
+    
+    paginator = Paginator(products, 6)  # 6 products per page
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
 
 
 
@@ -110,10 +121,52 @@ def checkout(request):
 def cart_view(request):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
     products = Cart.objects.all()
+    subtotal=0
+    shipping=60
+    discount_percentage=25
+    tax_percentage=18        
+    
+    for i in products:
+        subtotal+=i.total
+    total=subtotal+shipping
+    
+    discount = subtotal * discount_percentage / 100
+    discounted_subtotal = subtotal - discount
+    
+    tax = discounted_subtotal * tax_percentage / 100
+
+    total = discounted_subtotal + shipping + tax
+    
+    
+    Coupon_amount = 0
+    msg = ""
+    if request.method=="POST":
+        code=request.POST.get("code")
+
+    
+        try:
+            code= Coupon_Code.objects.get(code=code)
+            Coupon_amount=code.price
+            total -= Coupon_amount
+            
+        except Coupon_Code.DoesNotExist:
+            msg = "Coupon Code Not Valid"
+            
+
+    
 
     context = {
-        'cid': cid,
-        'products': products,
+    'cid': cid,
+    'products': products,
+    'subtotal': subtotal,
+    'shipping': shipping,
+    'discount_percentage': discount_percentage,
+    'discount': discount,
+    'tax_percentage':tax_percentage,
+    'tax':tax,
+    'total': total,
+    'Coupon_amount':Coupon_amount,   
+    'msg':msg, 
     }
     return render(request, 'cart.html', context)
     
@@ -140,19 +193,62 @@ def cart(request, id):
 
         else:
             Cart.objects.create(
+                image=product.image,
                 name=product.name,
                 price=product.price,
                 quantity=1,
                 total=product.price
             )
 
+
     products = Cart.objects.all()
+    
+    subtotal=0
+    shipping=60
+    discount_percentage=25
+    tax_percentage=18
+    
+    for i in products:
+        subtotal+=i.total
+    total=subtotal+shipping
+    
+    discount = subtotal * discount_percentage / 100
+    discounted_subtotal = subtotal - discount
+    
+    tax = discounted_subtotal * tax_percentage / 100
+
+    total = discounted_subtotal + shipping + tax
+    
+    Coupon_amount = 0
+    msg = ""
+    if request.method=="POST":
+        code=request.POST.get("code")
+
+    
+        try:
+            code= Coupon_Code.objects.get(code=code)
+            Coupon_amount=code.price
+            total -= Coupon_amount
+            
+        except Coupon_Code.DoesNotExist:
+            msg = "Coupon Code Not Valid"
+            
 
     context = {
-        'cid': cid,
-        'products': products,
+    'cid': cid,
+    'products': products,
+    'subtotal': subtotal,
+    'shipping': shipping,
+    'discount_percentage': discount_percentage,
+    'discount': discount,
+    'tax_percentage':tax_percentage,
+    'tax':tax,
+    'total': total, 
+    'Coupon_amount':Coupon_amount,   
+    'msg':msg,   
     }
     return render(request, 'cart.html', context)
+
 
 
 def cart_quant_sub(request, id):

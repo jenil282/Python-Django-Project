@@ -2,14 +2,22 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from .models import*
 from django.core.paginator import Paginator
+
+
+
+
 # Create your views here.
 def index(request):
+    cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count= Cart.objects.count()
     # cid=Main_category.objects.all()
     # s_cid = Sub_category.objects.select_related('Main_category').all()
-    cid = Main_category.objects.prefetch_related('sub_category_set').all()
+
+    
 
     context = {
-        'cid': cid
+        'cid': cid,
+        'cart_count':cart_count,
     }
     # print(s_cid)
     # context={
@@ -20,6 +28,7 @@ def index(request):
     return render(request,'index.html',context)
 
 def shopdetail(request, id):
+    cart_count= Cart.objects.count()
     cid = Main_category.objects.all()
 
     main_sub_cat = Main_category.objects.get(id=id)
@@ -47,7 +56,7 @@ def shopdetail(request, id):
             products= products.filter(size_key_id__in=selected_size)
             
         
-    paginator = Paginator(products, 6)  # 6 products per page
+    paginator = Paginator(products, 6) 
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 
@@ -55,6 +64,7 @@ def shopdetail(request, id):
 
     context = {
         "cid": cid,
+        'cart_count':cart_count,
         "main_sub_cat": main_sub_cat,
         "s_cid": s_cid,
         "display_item": display_item,
@@ -70,6 +80,7 @@ def shopdetail(request, id):
 
 def shoplist(request):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count= Cart.objects.count()
     colors=Color.objects.all()
     products = Product.objects.all()
         
@@ -77,7 +88,7 @@ def shoplist(request):
         selected_colors = request.POST.getlist("colors")  
         products = products.filter(color_key__in=selected_colors)
     
-    paginator = Paginator(products, 6)  # 6 products per page
+    paginator = Paginator(products, 6)  
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 
@@ -87,39 +98,82 @@ def shoplist(request):
         'cid': cid,
         'products':products,
         'colors':colors,
+        'cart_count':cart_count,
 
     }
 
     return render(request, 'shop.html',context)
 
 
-    
-def detail(request):
+def detail(request, id):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count = Cart.objects.count()
+    quantity = 1
+    product = None
 
-    context = {
-        'cid': cid
+    product = Product.objects.filter(id=id).first() 
+
+    if product:
+        cart_item = Cart.objects.filter(name=product.name).first()
+
+        if cart_item:
+            quantity = cart_item.quantity
+                
+    if request.method=="POST" :
+        quantity=int(request.POST.get("quantity"))
+        cart_item = Cart.objects.filter(name=product.name).first()
+        if quantity > 0:
+            if cart_item:
+                cart_item.quantity = quantity
+                cart_item.total = cart_item.quantity * cart_item.price
+                cart_item.save()
+            else:
+                Cart.objects.create(
+                image=product.image,
+                name=product.name,
+                price=product.price,
+                quantity=quantity,
+                total=product.price * quantity
+                    )          
+            return redirect("cart_view")
+        
+    context = { 
+        'cid': cid,
+        'cart_count': cart_count,
+        'quantity': quantity,
+        'product': product,
     }
-    return render(request,'detail.html',context)
+
+    return render(request, 'detail.html', context)
+    
 
 def contact(request):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count= Cart.objects.count()
+    
+
 
     context = {
-        'cid': cid
+        'cid': cid,
+        'cart_count':cart_count,
     }
     return render(request,'contact.html',context)
 
 def checkout(request):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count= Cart.objects.count()
+
 
     context = {
-        'cid': cid
+        'cid': cid,
+        'cart_count':cart_count,
     }
     return render(request,'checkout.html',context)
 
 def cart_view(request):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count= Cart.objects.count()
+
     products = Cart.objects.all()
     subtotal=0
     shipping=60
@@ -157,6 +211,7 @@ def cart_view(request):
 
     context = {
     'cid': cid,
+    'cart_count':cart_count,
     'products': products,
     'subtotal': subtotal,
     'shipping': shipping,
@@ -172,6 +227,7 @@ def cart_view(request):
     
 def cart(request, id):
     cid = Main_category.objects.prefetch_related('sub_category_set').all()
+    cart_count= Cart.objects.count()
 
     if id:
         product = Product.objects.get(id=id)
@@ -236,6 +292,7 @@ def cart(request, id):
 
     context = {
     'cid': cid,
+    'cart_count':cart_count,
     'products': products,
     'subtotal': subtotal,
     'shipping': shipping,

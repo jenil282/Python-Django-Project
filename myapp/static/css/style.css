@@ -4621,7 +4621,7 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #D19C97;
+  background-color: #c58b85;
   border-color: #D19C97;
 }
 
@@ -9611,7 +9611,9 @@ a.text-dark:hover, a.text-dark:focus {
   background: white;
   /* padding: 0.5rem; */
   font-weight: 400;
-  background-color: #cccccc;
+  /* background-color: #cccccc; */
+  /* background-color: #e6e6e6; */
+  background-color: #f3f3f3;
   color:#353535;
   }
   .dropbtn-text{
@@ -9661,7 +9663,8 @@ a.text-dark:hover, a.text-dark:focus {
   text-decoration: none;
   /* color: #525252; */
   color:#4d4d4d;
-  background-color: #b9b9b9;
+  /* background-color: #b9b9b9; */
+       background-color: #e6e6e6;
   overflow: hidden;
 
 }
@@ -9670,14 +9673,16 @@ a.text-dark:hover, a.text-dark:focus {
   text-decoration: none;
   /* color:var(--gray-dark); */
   font-weight: 600;
-  background-color:#b9b9b9;
+  /* background-color:#b9b9b9; */
+       background-color: #e6e6e6;
 }
 
 .dropbtn:hover .dropdown-content {
   display: block;
   text-decoration: none;
   color:#525252;
-  background-color: #b9b9b9;
+  /* background-color: #b9b9b9; */
+  background-color: #e6e6e6;
 }
 
 .submit-btn {

@@ -134,9 +134,9 @@
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                 {% if i.image %}
-                                <img class="img-fluid w-100" src="{{ i.image.url }}" alt="{{ i.name }}">
+                                <img class="img-fluid w-100 " src="{{ i.image.url }}" alt="{{ i.name }}">
                                 {% else %}
-                                    <img class="img-fluid w-100" src="{% static 'images/no-image.png' %}" alt="No image">
+                                    <img class="img-fluid w-100 " src="{% static 'images/no-image.png' %}" alt="No image">
                                 {% endif %}
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                <a href="{% url 'detail' id=i.id %}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                                 <a href="{% url 'cart' id=i.id %}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i> Add To Cart</a>
                             </div>
                         </div>
@@ -316,13 +316,13 @@
 
                                 <!-- Previous -->
                                 {% if products.has_previous %}
-                                    <li class="page-item">
+                                    <li class="page-item mr-1"  >
                                         <a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="page-item disabled">
+                                    <li class="page-item mr-1 disabled">
                                         <span class="page-link">&laquo;</span>
                                     </li>
                                 {% endif %}
@@ -330,11 +330,11 @@
                                 <!-- Page Numbers -->
                                 {% for num in products.paginator.page_range %}
                                     {% if products.number == num %}
-                                        <li class="page-item active">
+                                        <li class="page-item mr-1 active">
                                             <span class="page-link">{{ num }}</span>
                                         </li>
                                     {% else %}
-                                        <li class="page-item">
+                                        <li class="page-item mr-1" >
                                             <a class="page-link" href="?page={{ num }}">{{ num }}</a>
                                         </li>
                                     {% endif %}

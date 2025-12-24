@@ -30,14 +30,14 @@
                             <th>Quantity</th>
                             <th>Total</th>
                             <th>Remove</th>
-                            <th></th>
+                           
                         </tr>
                     </thead>
                     {% for p in products %}
                     <tr class="each-raw">
                         
             
-                            <td class="align-middle p-1 m-0" ><img src="{{p.image.url}}" alt="" style="height:50px; "> {{ p.name }}</td>
+                            <td class="align-middle p-1 pl-1 m-0" style="text-align:start;"><img src="{{p.image.url}}" alt="" style="height:50px; "> {{ p.name }}</td>
                             <td class="align-middle p-1 m-0">{{p.price}}</td>
                             <td class="align-middle p-1 m-0" >
                             <div class="quantity-main">

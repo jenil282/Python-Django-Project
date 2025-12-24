@@ -55,6 +55,8 @@ class User_Register(models.Model):
 class Cart(models.Model):
     name=models.CharField(max_length=100)
     price=models.IntegerField()
+    # size = models.CharField(max_length=20)
+    # color_key=models.ForeignKey(Color,on_delete=models.CASCADE,blank=True,null=True)
     quantity=models.IntegerField(default=1)
     total=models.IntegerField()
     image = models.ImageField(upload_to="products/", null=True, blank=True)
